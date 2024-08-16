@@ -1,0 +1,169 @@
+<h1 id="reservation-app-coding-challenge">Reservation-App-Coding-Challenge</h1>
+<p>Coding challenge where you build a Reservation App client that interacts with a RESTful API using React (Web) or Using Swift (Mobile).</p>
+<p>This Repo contains all pre-written code needed to spin up the REST API, documentation for the routes exposed by this API, and directions on what is required for the front-end or mobile app you will be creating.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Docker installed (<a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a>)</li>
+<li>Heroku Account</li>
+<li>Dev environment setup for either Web development (node + react) or Mobile development (Xcode and Swift)</li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="web-mobile">Web / Mobile</h3>
+<ol>
+<li>Use the step-by-step below to spin up the provided API.</li>
+<li>Create a separate Git Repo where you will write your code for the front-end for this project</li>
+<li>Use the API documentation below to integrate with the pre-provided backend</li>
+</ol>
+<h4 id="tip-run-the-heroku-apps-command-to-see-if-your-app-is-already-running">TIP: run the &#39;heroku apps&#39; command to see if your app is already running</h4>
+<h3 id="step-by-step-heroku-deployment">Step-By-Step - heroku deployment</h3>
+<ol>
+<li>In the terminal, confirm you are within the resy-takehome-backend directory</li>
+<li>Run <code>heroku login</code> and login with your heroku credentials</li>
+<li>Run <code>heroku container:login</code> </li>
+<li>Run <code>bash ./scripts/start-heroku.sh -n {put your name here}-takehome-api</code>, ex: <code>bash ./scripts/start-heroku.sh -n billy-takehome-api</code></li>
+<li>Wait for the command to complete</li>
+<li>Once complete, you can access your api at <a href="https://{your">https://{your</a> name here}-takehome-api.herokuapp.com/</li>
+<li>Optional - Use my pre-built Postman collection to test the API: <a href="https://www.getpostman.com/collections/d17ea1096dbade3f4a9c">https://www.getpostman.com/collections/d17ea1096dbade3f4a9c</a></li>
+</ol>
+<h3 id="stopping-the-app-heroku">Stopping the app - heroku</h3>
+<ol>
+<li>In the terminal, confirm you are within the resy-takehome-backend directory</li>
+<li>Copy <code>bash ./scripts/stop-heroku.sh -n {name}-takehome-api</code> and paste in the terminal, then hit return / enter</li>
+</ol>
+<h2 id="technical-requirements">Technical Requirements</h2>
+<p>Create a client for a Restaurant Reservations application. Users are able to:</p>
+<ul>
+<li>Add Restaurants</li>
+<li>Search Restaurants</li>
+<li>Create and Update Reservations </li>
+<li>List all Reservations</li>
+<li>View Details for Individual Reservations or Restaurants</li>
+</ul>
+<h3 id="api">API</h3>
+<p>Use the details and endpoints of the API below to accomplish the Reservation App functionality. This API accepts and returns JSON payloads.</p>
+<table>
+  <tr><td><strong>Method</strong></td><td><strong>Endpoint</strong></td><td><strong>Description</strong></td><td><strong>Example JSON Body Payload</strong></td></tr>
+  <tr><td>GET</td><td><code>/api/restaurants</code></td><td>List restaurants (empty query string = all restaurants)</td><td></td></tr>
+  <tr><td>GET</td><td><code>/api/restaurants/:id</code></td><td>Retreive a restaurant by ID</td><td></td></tr>
+  <tr><td>GET</td><td><code>/api/restaurants/:id/reservations</code></td><td>Retrieve all reservations at a restaurant</td><td></td></tr>
+  <tr><td>POST</td><td><code>/api/restaurants</code></td><td>Create a restaurant</td><td>
+
+  <code>
+  { 
+    &quot;name&quot;: &quot;Subway&quot;, 
+    &quot;description&quot;: &quot;Build-your-own sandwich chain&quot;, 
+    &quot;phoneNumber&quot;: &quot;0001112222&quot;, 
+    &quot;openingTime&quot;: &quot;10:00:00&quot;, 
+    &quot;closingTime&quot;: &quot;22:00:00&quot;, 
+    &quot;price&quot;: &quot;$&quot;, 
+    &quot;cuisine&quot;: &quot;American&quot;, 
+    &quot;location&quot;: &quot;New York City&quot;, 
+    &quot;diningRestriction&quot;: &quot;Takeout Only&quot; 
+  }</code>
+  </td></tr>
+  <tr><td>PATCH</td><td><code>/api/restaurants/:id</code></td><td>Update an existing Restaurant. The payload for updating a restaurant is a partial version of the &#39;Create a Restaurant&#39; payload where all fields are optional.</td><td>
+
+  <code>
+  { 
+    &quot;description&quot;: &quot;SUBWAY -- NOW WITH PIZZA&quot;, 
+    &quot;phoneNumber&quot;: &quot;7188212995&quot; 
+  }</code>
+  </td></tr>
+  <tr><td>DELETE</td><td><code>/api/restaurants/:id</code></td><td>Delete a restaurant</td><td></td></tr>
+  <tr><td>GET</td><td><code>/api/reservations</code></td><td>Retrieve all reservations</td><td></td></tr>
+  <tr><td>GET</td><td><code>/api/reservations/:id</code></td><td>Retrieve a reservation by ID</td><td></td></tr>
+  <tr><td>POST</td><td><code>/api/reservations/</code></td><td>Create a reservation. <code>restaurantId</code> must be the id of a valid Restaurant</td><td>
+
+  <code>
+  { 
+    &quot;firstName&quot;: &quot;Joe&quot;, 
+    &quot;lastName&quot;: &quot;Smith&quot;, 
+    &quot;phoneNumber&quot;: &quot;9098087777&quot;, 
+    &quot;email&quot;: &quot;joesmith@pursuit.com&quot;, 
+    &quot;time&quot;: &quot;2022-06-01 19:00:00&quot;, 
+    &quot;numGuests&quot;: &quot;2&quot;, 
+    &quot;restaurantId&quot;: &quot;470d7797-8ece-4133-9885-c5651fd90625&quot; 
+  }</code>
+  </td></tr>
+  <tr><td>PATCH</td><td><code>/api/reservations/:id</code></td><td>Update an existing Reservation. The payload for updating a restaurant is a partial version of the &#39;Create a Reservation&#39; payload where all fields are optional and you may not change the restaurantId.</td><td>
+
+  <code>
+  { 
+    &quot;time&quot;: &quot;2022-06-01 19:30:00&quot;, 
+    &quot;numGuests&quot;: &quot;4&quot; 
+  }</code>
+  </td></tr>
+  <tr><td>DELETE</td><td><code>/api/reservations/:id</code></td><td>Delete a reservation</td><td></td></tr>
+</table>
+
+
+
+
+<h3 id="app-pages-views">App Pages/Views</h3>
+<p>Your Reservation App should have the following pages or views (mobile) (and be displayed at their respective browser url [Web only]).</p>
+<h4 id="search-restaurants-restaurants-">Search Restaurants (<code>/restaurants</code>)</h4>
+<ul>
+<li>User can search restaurants (text search bar)</li>
+<li>User can filter restaurants by the filters defined in the API (pre-built filters: cuisine, location, price, Takeout/Delivery)</li>
+<li>If no filters are applied, User can view all Restaurants</li>
+</ul>
+<h4 id="create-restaurant-newrestaurant-">Create Restaurant (<code>/newRestaurant</code>)</h4>
+<ul>
+<li>User can fill out a form to create a restaurant based on the fields defined in the API (src/util/types.ts)</li>
+</ul>
+<h4 id="single-restaurant-restaurants-id-">Single Restaurant (<code>/restaurants/:id</code>)</h4>
+<ul>
+<li>User can view all details about the restaurant (Name, Description, Location, Price, Hours...)</li>
+<li>User can create a reservation for any time in the future when the restaurant is open</li>
+</ul>
+<h4 id="create-reservation-newreservation-optional-">Create Reservation (<code>/newReservation</code>) <strong><em>OPTIONAL</em></strong></h4>
+<ul>
+<li>If the create reservation form is not embedded in the single restaurant page, provide a form for the user to create a reservation for a given restaurant</li>
+</ul>
+<h4 id="all-reservations-reservations-">All Reservations (<code>/reservations</code>)</h4>
+<ul>
+<li>User can view all reservations</li>
+</ul>
+<h4 id="single-reservation-reservations-id-">Single Reservation (<code>/reservations/:id</code>)</h4>
+<ul>
+<li>User can view active reservation details</li>
+<li>Additional Challenge: User can update existing reservations</li>
+</ul>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li><p>You may use any 3rd-party libraries or packages for functionality or styling.</p>
+<ul>
+<li><strong>Web</strong> We recommend you use something like Bootstrap or Material UI or others to style you app.</li>
+<li><strong>Mobile</strong> You must write your networking layer natively, do not use Alamofire or equivalents for Network Requests.</li>
+</ul>
+</li>
+<li><p>When you first start the API, there will be some example restaurants and reservations to help you get started. Using a service like Postman or using curl commands, you can access the API directly to update this data as you build the front-end functionality for these operations.</p>
+</li>
+<li><p>Restaurant Fields:</p>
+<ul>
+<li>Required: name, description, price, cuisine, location, openingTime, closingTime</li>
+<li>Optional: phoneNumber, diningRestriction (&#39;Takeout Only&#39;, &#39;Delivery Only&#39;), tables</li>
+</ul>
+</li>
+<li>Reservation Fields:<ul>
+<li>Required: firstName, lastName, phoneNumber, time, numGuests</li>
+<li>Optional: email</li>
+</ul>
+</li>
+<li>For more detailed information about the types defined in this API see <a href="https://github.com/williamtaggart97/resy-takehome-backend/blob/main/src/util/types.ts">https://github.com/williamtaggart97/resy-takehome-backend/blob/main/src/util/types.ts</a> </li>
+</ul>
+<h3 id="design-inspiration">Design Inspiration</h3>
+<p>This idea for the project already pulls inspiration from apps like Open Table and Resy, so feel free to do the same for your work. In the screenshots folders (<code>web-screenshots</code> or <code>mobile-screenshots</code>), we compiled some examples of the different pages from these sites. In addition to these screenshots, we encourage everyone to test the functionality on these sites as you make decisions about your own app.</p>
+<ul>
+<li><a href="https://opentable.com">https://opentable.com</a> </li>
+<li><a href="https://resy.com">https://resy.com</a></li>
+</ul>
+<h2 id="hints">Hints</h2>
+<p>When formatting your query string to search and filter restaurants, the &#39;qs&#39; npm library can be very helpful for formatting complex query strings.</p>
+<h2 id="submission-guidelines">Submission Guidelines</h2>
+<ul>
+<li>We think this challenge would take ~8 hours to complete, so allocate your time appropriately.</li>
+<li>You must submit your solution no later than <strong>6/30/22</strong></li>
+<li>Please fill out this google form (<a href="https://forms.gle/mKYWBm6Ms5eBJS1n8">https://forms.gle/mKYWBm6Ms5eBJS1n8</a>) to submit your Take-Home. </li>
+<li>For any questions reach out to @Billy Taggart in the <a href="https://pursuit-core.slack.com/">Pursuit Core Workspace</a></li>
+</ul>

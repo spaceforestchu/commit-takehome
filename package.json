@@ -1,0 +1,23 @@
+{
+  "name": "resy_takehome_backend",
+  "version": "1.0.1",
+  "description": "Backend for Resy Takehome",
+  "author": "Billy Taggart <billy@pursuit.com>",
+  "scripts": {
+    "start": "ts-node ./src/server.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.1",
+    "express-joi-validation": "^5.0.1",
+    "joi": "^17.6.0",
+    "knex": "^2.0.0",
+    "pg": "^8.7.3",
+    "redis": "^4.1.0",
+    "ts-node": "^10.7.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13"
+  }
+}
